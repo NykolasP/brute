@@ -1,0 +1,11 @@
+<div id="nav" class="main">
+    <a href="/">Accueil</a>
+    <% if (userConnected == null) { %>
+        <a href="/inscription">Inscription</a>
+        <a href="/connexion">Connexion</a>
+    <% } else { %>
+        <a href="/profil">Mon Profil</a>
+        <a href="/listes">Listes des combattants</a>
+        <a href="/deconnexion">deconnexion</a>
+    <% } %>
+</div>

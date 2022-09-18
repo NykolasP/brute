@@ -1,0 +1,33 @@
+<%- include('composants/head'); %>
+    <div id="profil">
+        <h1>Mon profil</h1>
+        <div>Mon Email : <%= profilUtilisateur.email %></div>
+        <div>Nom : <%= profilUtilisateur.nom %></div>
+        <div>Prenom : <%= profilUtilisateur.prenom %></div>
+    </div>
+    <div id="robot">
+        <% if (robotUtilisateur == null) { %>
+            <article>
+                <div><h2>Créer son robot !</h2></div>
+                <form method="post">
+                    <input type="text" name="pseudo" id="pseudo">
+                    <button type="submit">Créer le robot !</button>
+                </form>
+            </article>
+        <% } else { %>
+            <article>
+                <div><h2>Mon Combattant</h2></div>
+                <div>Pseudo : <%= robotUtilisateur.pseudo %></div>
+
+                <div>Pv : <%= robotUtilisateur.pv %></div>
+                <div>Niveau : <%= robotUtilisateur.niveau %></div>
+                <div>Experience : <%= robotUtilisateur.experience %></div>
+
+                <div>Force : <%= robotUtilisateur.force %></div>
+                <div>Esquive : <%= robotUtilisateur.esquive %></div>
+                <div>Defense : <%= robotUtilisateur.defense %></div>
+
+            </article>
+        <% } %>
+    </div>
+<%- include('composants/footer'); %>

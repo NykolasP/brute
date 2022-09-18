@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "outDir": "dist",
+        "watch": true,
+        "target": "ES2015",
+        "noEmitOnError": true,
+        "strict": true,
+        "experimentalDecorators": true,
+        "moduleResolution": "node",
+        "module": "CommonJS",
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true
+    },
+    "include": [
+    "./src/front/**/*.ts"
+    ],
+    "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+    ]
+}

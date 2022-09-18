@@ -1,0 +1,13 @@
+<%- include('composants/head'); %>
+
+<% if (userConnected == null) { %>
+    <article>
+        Bienvenue sur notre jeux de combat !
+    </article>
+<% } else { %>
+    <article>
+        <h1>Bienvenue <%= userConnected %> prêt au combat ?</h1>
+    </article>
+<% } %>
+
+<%- include('composants/footer'); %>

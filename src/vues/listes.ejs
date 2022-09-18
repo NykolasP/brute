@@ -1,0 +1,17 @@
+<%- include('composants/head'); %>
+<h2>listes des comabatants</h2>
+<% listesRobot.forEach(function(robot){ %>
+    <a href="/combat/<%= idrobotUser %>/<%= robot.id %>">
+    <div style="border:1px solid black;">
+        <div>Pseudo : <%= robot.pseudo %></div>
+        <div>Niveau : <%= robot.niveau %></div>
+        <div>Pv : <%= robot.pv %></div>
+        <br>
+        <div>Force : <%= robot.force %></div>
+        <div>Esquive : <%= robot.esquive %></div>
+        <div>Defense : <%= robot.defense %></div>
+    </div>
+    </a>
+    <br>
+<% }); %>
+<%- include('composants/footer'); %>
