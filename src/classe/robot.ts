@@ -1,4 +1,5 @@
-import { addRobot } from "../model/robot"
+import { addRobot, UpArgentRobot } from "../model/robot"
+import { addItemRobot } from "../model/shop"
 
 export class Robot {
     #pseudo:string
@@ -44,6 +45,10 @@ export class Robot {
 
     public set argent (argent:number){
         this.#argent = argent
+    }
+
+    get Argent() {
+        return this.#argent
     }
 
     addRobotUser(){
@@ -106,5 +111,14 @@ export class Robot {
             tour = !tour
         }
         return retour
+    }
+
+    achatItem(prix:number,user:string,item:string){
+        if (this.#argent >= prix) {
+            addItemRobot(user,item)
+            this.#argent = this.#argent - prix
+            //UpArgentRobot(this.#argent,this.#id)
+        }   
+        
     }
 }

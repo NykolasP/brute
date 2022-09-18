@@ -25,6 +25,16 @@ export function getRobot(id:string) {
         })
     })
 }
+
+export function UpArgentRobot(argent:number,id:string) {
+    return new Promise((result, reject) => {
+        con.query("UPDATE robot SET argent=? WHERE id=?",[argent,id], (err:QueryError, data:RowDataPacket) => {
+            if (err) reject(err)
+            else result(data[0])
+        })
+    })
+}
+
 export function addRobot(pseudo: string,force: number,esquive: number,defense: number,pv: number,niveau: number,experience: number,argent: number,email:string, id_compte:number) {
     return new Promise((result, reject) => {
         con.query("INSERT INTO `robot`(`pseudo`, `force`, `esquive`, `defense`, `pv`, `niveau`, `experience`, `argent`, `email`, `id_compte`) VALUES (?,?,?,?,?,?,?,?,?,?)", [

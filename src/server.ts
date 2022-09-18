@@ -212,10 +212,13 @@ export default class Server {
                 let email = req.session.email
                 getByEmail(req.session.email).then((data:any) => {
                     let infoUtilisateur = data
-                    getAllItemsShop().then((data:any) =>{
-                        res.render('shop',{userConnected: email,userId: infoUtilisateur['id'],items: data})    
+                    getUserRobot(infoUtilisateur['id']).then((robotData:any) =>{
+                        let robot = robotData
+
+                        getAllItemsShop().then((data:any) =>{
+                            res.render('shop',{userConnected: email,robot: robot,user: infoUtilisateur,items: data})    
+                        })
                     })
-                    
                 })
             } else {
                 res.render('index',{userConnected: null})
@@ -224,14 +227,28 @@ export default class Server {
 
         app.get('/shop/:idUtilisateur/:idItem', (req, res) => {
             if (req.session && req.session.email) {
-                addItemRobot(req.params.idUtilisateur,req.params.idItem)
                 let email = req.session.email
                 getByEmail(req.session.email).then((data:any) => {
                     let infoUtilisateur = data
-                    getAllItemsShop().then((data:any) =>{
-                        res.render('shop',{userConnected: email,userId: infoUtilisateur['id'],items: data})    
+                    getUserRobot(infoUtilisateur['id']).then((robotData:any) =>{
+                        let robot = robotData
+                        let r = new Robot(
+                            robot['pseudo'],
+                            robot['force'],
+                            robot['esquive'],
+                            robot['defense'],
+                            robot['pv'],
+                            robot['niveau'],
+                            robot['experience'],
+                            robot['argent'],
+                            robot['email'],
+                            robot['id_compte'])
+                        
+                        r.achatItem(r.Argent,req.params.idUtilisateur,req.params.idItem)
+                        getAllItemsShop().then((data:any) =>{
+                            res.render('shop',{userConnected: email,robot: robot,user: infoUtilisateur,items: data})    
+                        })
                     })
-                    
                 })
             } else {
                 res.render('index',{userConnected: null})
