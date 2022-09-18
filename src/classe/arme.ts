@@ -9,4 +9,16 @@ class Arme extends Object{
         this.#modForce = modForce
         this.#modEsquive =  modEsquive
     }
+
+    get type() {
+        return this.#type
+    }
+
+    get modForce() {
+        return this.#modForce
+    }
+
+    get modEsquive() {
+        return this.#modEsquive
+    }
 }

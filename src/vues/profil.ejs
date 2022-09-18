@@ -26,7 +26,25 @@
                 <div>Force : <%= robotUtilisateur.force %></div>
                 <div>Esquive : <%= robotUtilisateur.esquive %></div>
                 <div>Defense : <%= robotUtilisateur.defense %></div>
-
+            </article>
+            <article>
+                <div><h2>Equiper</h2></div>
+                <div>Arme : </div>
+                <div>Bouclier : </div>
+                <div>Tenue : </div>
+            </article>
+            <article>
+                <div><h2>Mon sac</h2></div>
+                <% if (robotUtilisateur == null) { %>
+                    Aucun item ....
+                <% } else { %>
+                    <ul>
+                    <% items.forEach((item) => {%>
+                        <li><%= item.nom %></li>
+                    <% });%>
+                    </ul>
+                <% } %>
+                
             </article>
         <% } %>
     </div>

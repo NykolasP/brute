@@ -7,6 +7,9 @@ import { getAllRobotExpectUser, getRobot, getUserRobot } from "./model/robot";
 import { IRobot } from "./interfaces/robot";
 
 import { Robot } from "./classe/robot"
+import { getAllItems } from "./model/item";
+import { IItem } from "./interfaces/items";
+import { addItemRobot, getAllItemsRobot, getAllItemsShop } from "./model/shop";
 
 const Utilisateur = require('./classe/utilisateur')
 
@@ -32,6 +35,7 @@ export default class Server {
 
         let profil: IUtilisateur[] = []
         let robot: IRobot[] = []
+        let items:IItem[] = []
 
         app.listen(this.port, () => {
             console.log('Serveur démarré sur le port : ' + this.port)
@@ -114,15 +118,19 @@ export default class Server {
         app.get('/profil', (req, res) => {
             if (req.session && req.session.email) {
                 getByEmail(req.session.email).then((data:any) => {
-                    profil = data
+                    let profil = data
                     getUserRobot(data['id']).then((robotData:any) =>{
-                        robot = robotData
-                        
-                        if (robot) {
-                            res.render('profil',{userConnected: data.email, profilUtilisateur: profil, robotUtilisateur: robot})
-                        } else {
-                            res.render('profil',{userConnected: data.email, profilUtilisateur: profil, robotUtilisateur: null})
-                        }
+                        let robot = robotData
+                        getAllItemsRobot(data['id']).then((dataitem:any) =>{
+                            let itemRobot = dataitem
+
+                            if (robot) {
+                                res.render('profil',{userConnected: profil.email, profilUtilisateur: profil, robotUtilisateur: robot, items: itemRobot})
+                            } else {
+                                res.render('profil',{userConnected: profil.email, profilUtilisateur: profil, robotUtilisateur: null, items: null})
+                            }
+                        })
+
                     })
                 })
             } else {
@@ -197,6 +205,37 @@ export default class Server {
                 res.render('inscription',{userConnected: null})
             }
             
+        })
+
+        app.get('/shop', (req, res) => {
+            if (req.session && req.session.email) {
+                let email = req.session.email
+                getByEmail(req.session.email).then((data:any) => {
+                    let infoUtilisateur = data
+                    getAllItemsShop().then((data:any) =>{
+                        res.render('shop',{userConnected: email,userId: infoUtilisateur['id'],items: data})    
+                    })
+                    
+                })
+            } else {
+                res.render('index',{userConnected: null})
+            }
+        })
+
+        app.get('/shop/:idUtilisateur/:idItem', (req, res) => {
+            if (req.session && req.session.email) {
+                addItemRobot(req.params.idUtilisateur,req.params.idItem)
+                let email = req.session.email
+                getByEmail(req.session.email).then((data:any) => {
+                    let infoUtilisateur = data
+                    getAllItemsShop().then((data:any) =>{
+                        res.render('shop',{userConnected: email,userId: infoUtilisateur['id'],items: data})    
+                    })
+                    
+                })
+            } else {
+                res.render('index',{userConnected: null})
+            }
         })
     }
 }

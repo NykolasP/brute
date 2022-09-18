@@ -9,4 +9,16 @@ class Tenue extends Object{
         this.#modDefense = modDefense
         this.#modEsquive =  modEsquive
     }
+
+    get type() {
+        return this.#type
+    }
+
+    get modDefense() {
+        return this.#modDefense
+    }
+
+    get modEsquive() {
+        return this.#modEsquive
+    }
 }

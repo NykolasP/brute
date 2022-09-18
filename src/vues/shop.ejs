@@ -1,0 +1,8 @@
+<%- include('composants/head'); %>
+<h1>Boutique</h1>
+<ul>
+    <% items.forEach((item) => {%>
+        <li><a href="/shop/<%= userId %>/<%= item.id %>"><%= item.nom %> - <%= item.prix %> - po</a></li>
+    <% });%>
+</ul>    
+<%- include('composants/footer'); %>

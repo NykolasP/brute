@@ -2,12 +2,22 @@ class Objet{
     #id:number
     #nom:number
     #image:number
-    #type:string
 
-    constructor(numero,nom,image,type){
+    constructor(numero,nom,image){
         this.#id = numero
         this.#nom = nom
         this.#image = image
-        this.#type = type
+    }
+
+    get id() {
+        return this.#id
+    }
+
+    get nom() {
+        return this.#nom
+    }
+
+    get image() {
+        return this.#image
     }
 }
